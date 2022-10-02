@@ -1,0 +1,20 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filter__title {
+  color: #ffff;
+}
+/* .filter__option {
+  height: 0.5rem;
+  width: 1rem;
+} */
+#options {
+  padding: 0.5rem;
+  height: 3rem;
+  width: 6rem;
+  border-radius: 0.5rem;
+  outline: none;
+  border: 1px solid #ffff;
+}
