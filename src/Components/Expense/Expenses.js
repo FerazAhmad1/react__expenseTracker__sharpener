@@ -18,14 +18,23 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />{" "}
-      {filteredExpenses.map((expenses) => (
-        <ExpenseItems
-          id={expenses.id}
-          title={expenses.title}
-          amount={expenses.amount}
-          date={expenses.date}
-        ></ExpenseItems>
-      ))}
+      {filteredExpenses.length === 0 ? (
+        <p className="message">No expenses found</p>
+      ) : (
+        filteredExpenses.map((expenses) => (
+          <ExpenseItems
+            id={expenses.id}
+            title={expenses.title}
+            amount={expenses.amount}
+            date={expenses.date}
+          ></ExpenseItems>
+        ))
+      )}
+      {filteredExpenses.length === 1 ? (
+        <p className="message">Only single Expense here. Please add more..."</p>
+      ) : (
+        ""
+      )}
       {/* <ExpenseItems
         title={expenses.items[0].title}
         amount={expenses.items[0].amount}
