@@ -7,7 +7,7 @@ export default function ExpenseForm(props) {
     enterAmount: "",
     enterDate: "",
   });
-
+  let [decision, setDecision] = useState(false);
   const titleChangeHandler = (event) => {
     // setenterUserDetail({
     //   ...enterTUserDetail,
@@ -39,47 +39,73 @@ export default function ExpenseForm(props) {
       enterAmount: "",
       enterDate: "",
     });
+    setDecision(false);
     props.onSaveExpenseData(expenseData);
   };
 
-  return (
-    <form onSubmit={submitHandler}>
-      <div className="new-expense__controls">
-        <div className="new-expense__control">
-          <label for="">title</label>
-          <input
-            type="text"
-            value={enterTUserDetail.enterTitle}
-            onChange={titleChangeHandler}
-          />
+  const cancelHandler = (event) => {
+    event.preventDefault();
+    setenterUserDetail({
+      enterTitle: "",
+      enterAmount: "",
+      enterDate: "",
+    });
+    setDecision(false);
+  };
+  const clickHandler = () => {
+    console.log("yes", decision);
+    setDecision(true);
+  };
+  let formContent;
+  if (decision) {
+    formContent = (
+      <form>
+        <div className="new-expense__controls">
+          <div className="new-expense__control">
+            <label for="">title</label>
+            <input
+              type="text"
+              value={enterTUserDetail.enterTitle}
+              onChange={titleChangeHandler}
+            />
+          </div>
+
+          <div className="new-expense__control">
+            <label for="">Amount</label>
+            <input
+              type="Number"
+              min={0.01}
+              step="0.01"
+              value={enterTUserDetail.enterAmount}
+              onChange={amountChangeHandler}
+            />
+          </div>
+
+          <div className="new-expense__control">
+            <label for="">Date</label>
+            <input
+              type="date"
+              min="2022-01-01"
+              max="2023-12-31"
+              value={enterTUserDetail.enterDate}
+              onChange={dateChangeHandler}
+            />
+          </div>
         </div>
 
-        <div className="new-expense__control">
-          <label for="">Amount</label>
-          <input
-            type="Number"
-            min={0.01}
-            step="0.01"
-            value={enterTUserDetail.enterAmount}
-            onChange={amountChangeHandler}
-          />
+        <div className="new-expense__actions">
+          <button type="submit" onClick={cancelHandler}>
+            Cancel
+          </button>
+          <button type="submit" onClick={submitHandler}>
+            Add Expense
+          </button>
         </div>
+      </form>
+    );
+  } else {
+    formContent = <button onClick={clickHandler}>Add New Expense</button>;
+  }
 
-        <div className="new-expense__control">
-          <label for="">Date</label>
-          <input
-            type="date"
-            min="2022-01-01"
-            max="2023-12-31"
-            value={enterTUserDetail.enterDate}
-            onChange={dateChangeHandler}
-          />
-        </div>
-      </div>
-
-      <div className="new-expense__actions">
-        <button type="submit">Add Expense</button>
-      </div>
-    </form>
-  );
+  return <div>{formContent}</div>;
 }

@@ -34,6 +34,7 @@ const App = () => {
       return [expense, ...prevExpense];
     });
   };
+
   // return React.createElement(
   //   "div",
   //   { className: "App" },
@@ -44,6 +45,7 @@ const App = () => {
   return (
     <div className="App">
       <NewExpense onAddExpense={addExpenseHandler} />
+
       <Expenses items={expenses} />
     </div>
   );
